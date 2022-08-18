@@ -1,3 +1,6 @@
+using ClinicService.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace ClinicService
 {
     public class Program
@@ -5,6 +8,11 @@ namespace ClinicService
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<ClinicServiceDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration["Settings:DatabaseOptions:ConnectionString"]);
+            });
 
             // Add services to the container.
 
