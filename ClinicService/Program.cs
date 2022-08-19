@@ -4,6 +4,9 @@ using ClinicService.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.HttpLogging;
 using NLog.Web;
+using ClientServiceProtos;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using System.Net;
 
 namespace ClinicService
 {
@@ -13,10 +16,20 @@ namespace ClinicService
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.WebHost.ConfigureKestrel(options =>
+            {
+                options.Listen(IPAddress.Any, 5001, listenOptions =>
+                {
+                    listenOptions.Protocols = HttpProtocols.Http2;
+                });
+            });
+
             builder.Services.AddDbContext<ClinicServiceDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration["Settings:DatabaseOptions:ConnectionString"]);
             });
+            builder.Services.AddGrpc(); // 1
+
             #region Configure logging service
 
             builder.Services.AddHttpLogging(logging =>
@@ -61,10 +74,25 @@ namespace ClinicService
                 app.UseSwaggerUI();
             }
             app.UseHttpLogging();
+            app.UseWhen( // Ошибка, пообещали исправить в .NET 7
+                ctx => ctx.Request.ContentType != "application/grpc",
+                builder =>
+                {
+                    builder.UseHttpLogging();
+                }
+            );
             app.UseAuthorization();
 
 
             app.MapControllers();
+
+            app.UseEndpoints(endpoints =>  // 2
+            {
+                // Communication with gRPC endpoints must be made through a gRPC client.
+                // To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909
+                endpoints.MapGrpcService<ClientService>();
+
+            });
 
             app.Run();
         }
