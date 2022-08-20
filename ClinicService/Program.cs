@@ -7,6 +7,7 @@ using NLog.Web;
 using ClientServiceProtos;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using System.Net;
+using ClientService = ClinicService.Services.Impl.ClientService;
 
 namespace ClinicService
 {
@@ -73,7 +74,7 @@ namespace ClinicService
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseHttpLogging();
+           
             app.UseWhen( // Ошибка, пообещали исправить в .NET 7
                 ctx => ctx.Request.ContentType != "application/grpc",
                 builder =>
@@ -85,7 +86,7 @@ namespace ClinicService
 
 
             app.MapControllers();
-
+            app.UseRouting();
             app.UseEndpoints(endpoints =>  // 2
             {
                 // Communication with gRPC endpoints must be made through a gRPC client.
