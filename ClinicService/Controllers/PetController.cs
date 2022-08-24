@@ -1,4 +1,5 @@
 ﻿using ClinicService.Data;
+using ClinicService.Models.Requests;
 using ClinicService.Services;
 using ClinicService.Services.Impl;
 using Microsoft.AspNetCore.Http;
@@ -29,16 +30,15 @@ namespace ClinicService.Controllers
         #endregion
         #region Public Methods
 
-        //[HttpPost("create")]
-        //[ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
-        //public IActionResult Create([FromBody] CreateClientRequest createRequest) =>
-        //    Ok(_clientRepository.Add(new Client
-        //    {
-        //        Document = createRequest.Document,
-        //        Surname = createRequest.Surname,
-        //        FirstName = createRequest.FirstName,
-        //        Patronymic = createRequest.Patronymic
-        //    }));
+        [HttpPost("create")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        public IActionResult Create([FromBody] CreatePetRequest createRequest) =>
+            Ok(_petRepository.Add(new Pet
+            {
+                Name = createRequest.Name,
+                Birthday = createRequest.Birthday,
+                ClientId = createRequest.ClientId,
+            }));
 
         //[HttpPut("update")]
         //public IActionResult Update([FromBody] UpdateClientRequest updateRequest)
@@ -60,10 +60,10 @@ namespace ClinicService.Controllers
         //    return Ok();
         //}
 
-        //[HttpGet("get-all")]
-        //[ProducesResponseType(typeof(IList<Client>), StatusCodes.Status200OK)]
-        //public IActionResult GetAll() =>
-        //    Ok(_clientRepository.GetAll());
+        [HttpGet("get-all")]
+        [ProducesResponseType(typeof(IList<Pet>), StatusCodes.Status200OK)]
+        public IActionResult GetAll() =>
+            Ok(_petRepository.GetAll());
 
         //[HttpGet("get/{id}")]
         //[ProducesResponseType(typeof(Client), StatusCodes.Status200OK)]

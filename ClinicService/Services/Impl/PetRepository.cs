@@ -42,12 +42,12 @@ namespace ClinicService.Services.Impl
 
         public IList<Pet> GetAll()
         {
-            throw new NotImplementedException();
+           return _dbContext.Pets.ToList();
         }
 
         public Pet? GetById(int id)
         {
-            throw new NotImplementedException();
+            return _dbContext.Pets.FirstOrDefault(pet => pet.PetId == id);
         }
 
         public void Update(Pet item)

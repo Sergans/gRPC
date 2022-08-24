@@ -1,5 +1,7 @@
-﻿using ClinicService.Data;
+﻿
+using ClinicService.Data;
 using ClinicService.Models.Requests;
+
 using ClinicService.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -65,7 +67,9 @@ namespace ClinicService.Controllers
         [ProducesResponseType(typeof(IList<Client>), StatusCodes.Status200OK)]
         public IActionResult GetAll()
         {
+           
             var a = _clientRepository.GetAll();
+            
             return Ok(a);
         }
 

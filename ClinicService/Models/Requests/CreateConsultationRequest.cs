@@ -1,7 +1,11 @@
-﻿namespace ClinicService.Models.Requests
+﻿using ClinicService.Data;
+
+namespace ClinicService.Models.Requests
 {
     public class CreateConsultationRequest
     {
+        public int ClientId { get; set; }
+        public int PetId { get; set; }
         public string Document { get; set; }
 
         public string? Surname { get; set; }

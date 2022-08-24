@@ -1,4 +1,5 @@
 ﻿using ClinicService.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClinicService.Services.Impl
 {

@@ -39,32 +39,55 @@ namespace ClinicService.Controllers
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         public IActionResult Create([FromBody] CreateConsultationRequest createRequest)
         {
-            Client client = new Client()
+            Consultation consultation = new Consultation();
+            var client=_clientRepository.GetById(createRequest.ClientId);
+            var pet=_petRepository.GetById(createRequest.PetId);
+            if (client != null)
             {
-                Document = createRequest.Document,
-                FirstName = createRequest.FirstName,
-                Surname = createRequest.Surname,
-                Patronymic = createRequest.Patronymic,
-            };
-            var clientId = _clientRepository.Add(client);
-            Pet pet = new Pet()
+                if (pet== null)
+                {
+                   var PetId= _petRepository.Add(new Pet()
+                    {
+                        ClientId = client.ClientId,
+                        Birthday = createRequest.Birthday,
+                        Name = createRequest.Name,
+                    });
+                    consultation.PetId = PetId;
+                }
+                else
+                {
+                    consultation.PetId = pet.PetId;
+                }
+                
+                consultation.Client = client;
+                consultation.ConsultationDate = DateTime.Now;
+                consultation.Description = createRequest.Description;
+                
+            }
+            else
             {
-                Name = createRequest.Name,
-                Birthday = createRequest.Birthday,
-                ClientId= clientId,
-            };
-            var petId = _petRepository.Add(pet);
-            Consultation consultation = new Consultation()
-            {
-                ConsultationDate = DateTime.Now,
-                Description = createRequest.Description,
-                ClientId = clientId,
-                PetId = petId,
-
-            };
+                var clientId = _clientRepository.Add(new Client()
+                {
+                    Document=createRequest.Document,
+                    FirstName=createRequest.FirstName,
+                    Surname=createRequest.Surname,
+                    Patronymic=createRequest.Patronymic,
+                });
+                var petId = _petRepository.Add(new Pet()
+                {
+                    Name = createRequest.Name,
+                    Birthday = createRequest.Birthday,
+                    ClientId = clientId,
+                });
+                
+                consultation.PetId = petId;
+                consultation.ClientId= clientId;
+                consultation.Description= createRequest.Description;
+                consultation.ConsultationDate= DateTime.Now;
+            }
+           
             _consultationRepository.Add(consultation);
            
-
             return Ok();
         }
            
@@ -90,9 +113,14 @@ namespace ClinicService.Controllers
         }
 
         [HttpGet("get-all")]
-        [ProducesResponseType(typeof(IList<Client>), StatusCodes.Status200OK)]
-        public IActionResult GetAll() =>
-            Ok(_consultationRepository.GetAll());
+        [ProducesResponseType(typeof(IList<Consultation>), StatusCodes.Status200OK)]
+        public IActionResult GetAll()
+        {
+            var consultation = _consultationRepository.GetAll();
+            
+            return Ok(consultation);
+        }
+            
 
         [HttpGet("get/{id}")]
         [ProducesResponseType(typeof(Client), StatusCodes.Status200OK)]
