@@ -1,4 +1,5 @@
 ﻿using ClinicService.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClinicService.Services.Impl
 {
@@ -48,8 +49,9 @@ namespace ClinicService.Services.Impl
 
         public IList<Client> GetAll()
         {
-            
-            return _dbContext.Clients.ToList();
+            var a= _dbContext.Clients.Include(x => x.Consultations).ToList();
+            // return _dbContext.Clients.ToList();
+            return a;
         }
 
         public Client? GetById(int id)
