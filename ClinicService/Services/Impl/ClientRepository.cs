@@ -48,6 +48,7 @@ namespace ClinicService.Services.Impl
 
         public IList<Client> GetAll()
         {
+            
             return _dbContext.Clients.ToList();
         }
 

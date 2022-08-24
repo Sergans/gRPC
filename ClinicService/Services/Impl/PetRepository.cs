@@ -25,7 +25,9 @@ namespace ClinicService.Services.Impl
 
         public int Add(Pet item)
         {
-            throw new NotImplementedException();
+            _dbContext.Pets.Add(item);
+            _dbContext.SaveChanges();
+            return item.PetId;
         }
 
         public void Delete(Pet item)

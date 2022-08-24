@@ -63,8 +63,11 @@ namespace ClinicService.Controllers
 
         [HttpGet("get-all")]
         [ProducesResponseType(typeof(IList<Client>), StatusCodes.Status200OK)]
-        public IActionResult GetAll() =>
-            Ok(_clientRepository.GetAll());
+        public IActionResult GetAll()
+        {
+            
+            return Ok(_clientRepository.GetAll());
+        }
 
         [HttpGet("get/{id}")]
         [ProducesResponseType(typeof(Client), StatusCodes.Status200OK)]
