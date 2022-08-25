@@ -68,8 +68,7 @@ namespace ClinicService.Services.Impl
 
             consultation.Description = item.Description;
             consultation.ConsultationDate = item.ConsultationDate;
-            consultation.ClientId = item.ClientId;
-            consultation.PetId = item.PetId;
+           
 
             _dbContext.Update(consultation);
             _dbContext.SaveChanges();

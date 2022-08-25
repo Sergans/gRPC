@@ -65,7 +65,7 @@ namespace ClinicService.Services.Impl
             if (pet == null)
                 throw new KeyNotFoundException();
 
-            pet.ClientId = item.ClientId;
+            
             pet.Birthday = item.Birthday;
             pet.Name = item.Name;
             

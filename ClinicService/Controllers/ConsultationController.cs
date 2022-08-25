@@ -98,8 +98,6 @@ namespace ClinicService.Controllers
             _consultationRepository.Update(new Consultation
             {
                 ConsultationId = updateRequest.ConsultationId,
-                ClientId = updateRequest.ClientId,
-                PetId = updateRequest.PetId,
                 ConsultationDate = updateRequest.ConsultationDate,
                 Description = updateRequest.Description
             });
