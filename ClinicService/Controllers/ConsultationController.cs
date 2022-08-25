@@ -90,20 +90,20 @@ namespace ClinicService.Controllers
            
             return Ok();
         }
-           
 
-        //[HttpPut("update")]
-        //public IActionResult Update([FromBody] UpdateClientRequest updateRequest)
-        //{
-        //    _clientRepository.Update(new Client
-        //    {
-        //        ClientId = updateRequest.ClientId,
-        //        Surname = updateRequest.Surname,
-        //        FirstName = updateRequest.FirstName,
-        //        Patronymic = updateRequest.Patronymic
-        //    });
-        //    return Ok();
-        //}
+
+        [HttpPut("update")]
+        public IActionResult Update([FromBody] UpdateConsultationRequest updateRequest)
+        {
+            _consultationRepository.Update(new Consultation
+            {
+                ClientId = updateRequest.ClientId,
+                PetId = updateRequest.PetId,
+                ConsultationDate = updateRequest.ConsultationDate,
+                Description = updateRequest.Description
+            });
+            return Ok();
+        }
 
         [HttpDelete("delete")]
         public IActionResult Delete([FromQuery] int consultationId)

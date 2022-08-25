@@ -49,7 +49,7 @@ namespace ClinicService.Services.Impl
 
         public IList<Client> GetAll()
         {
-          return _dbContext.Clients.Include(c=>c.Consultations).ToList();
+          return _dbContext.Clients.ToList();
         }
 
         public Client? GetById(int id)

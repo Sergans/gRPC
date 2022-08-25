@@ -32,12 +32,18 @@ namespace ClinicService.Services.Impl
 
         public void Delete(Pet item)
         {
-            throw new NotImplementedException();
+            if (item == null)
+                throw new NullReferenceException();
+            Delete(item.PetId);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var pet = GetById(id);
+            if (pet == null)
+                throw new KeyNotFoundException();
+            _dbContext.Remove(pet);
+            _dbContext.SaveChanges();
         }
 
         public IList<Pet> GetAll()
@@ -52,7 +58,20 @@ namespace ClinicService.Services.Impl
 
         public void Update(Pet item)
         {
-            throw new NotImplementedException();
+            if (item == null)
+                throw new NullReferenceException();
+
+            var pet = GetById(item.ClientId);
+            if (pet == null)
+                throw new KeyNotFoundException();
+
+            pet.ClientId = item.ClientId;
+            pet.Birthday = item.Birthday;
+            pet.Name = item.Name;
+            
+
+            _dbContext.Update(pet);
+            _dbContext.SaveChanges();
         }
     }
 

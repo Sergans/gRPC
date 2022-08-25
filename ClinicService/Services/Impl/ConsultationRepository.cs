@@ -67,9 +67,9 @@ namespace ClinicService.Services.Impl
                 throw new KeyNotFoundException();
 
             consultation.Description = item.Description;
-            //consultation.Surname = item.Surname;
-            //consultation.FirstName = item.FirstName;
-            //consultation.Patronymic = item.Patronymic;
+            consultation.ConsultationDate = item.ConsultationDate;
+            consultation.ClientId = item.ClientId;
+            consultation.PetId = item.PetId;
 
             _dbContext.Update(consultation);
             _dbContext.SaveChanges();

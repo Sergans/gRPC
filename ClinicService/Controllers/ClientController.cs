@@ -40,7 +40,8 @@ namespace ClinicService.Controllers
                 Document = createRequest.Document,
                 Surname = createRequest.Surname,
                 FirstName = createRequest.FirstName,
-                Patronymic = createRequest.Patronymic
+                Patronymic = createRequest.Patronymic,
+                
             }));
 
         [HttpPut("update")]

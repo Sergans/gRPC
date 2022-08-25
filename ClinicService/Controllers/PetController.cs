@@ -40,35 +40,35 @@ namespace ClinicService.Controllers
                 ClientId = createRequest.ClientId,
             }));
 
-        //[HttpPut("update")]
-        //public IActionResult Update([FromBody] UpdateClientRequest updateRequest)
-        //{
-        //    _clientRepository.Update(new Client
-        //    {
-        //        ClientId = updateRequest.ClientId,
-        //        Surname = updateRequest.Surname,
-        //        FirstName = updateRequest.FirstName,
-        //        Patronymic = updateRequest.Patronymic
-        //    });
-        //    return Ok();
-        //}
+        [HttpPut("update")]
+        public IActionResult Update([FromBody] UpdatePetRequest updateRequest)
+        {
+            _petRepository.Update(new Pet
+            {
+                ClientId = updateRequest.ClientId,
+                Birthday = updateRequest.Birthday,
+                Name = updateRequest.Name,
+               
+            });
+            return Ok();
+        }
 
-        //[HttpDelete("delete")]
-        //public IActionResult Delete([FromQuery] int clientId)
-        //{
-        //    _clientRepository.Delete(clientId);
-        //    return Ok();
-        //}
+        [HttpDelete("delete")]
+        public IActionResult Delete([FromQuery] int petId)
+        {
+            _petRepository.Delete(petId);
+            return Ok();
+        }
 
         [HttpGet("get-all")]
         [ProducesResponseType(typeof(IList<Pet>), StatusCodes.Status200OK)]
         public IActionResult GetAll() =>
             Ok(_petRepository.GetAll());
 
-        //[HttpGet("get/{id}")]
-        //[ProducesResponseType(typeof(Client), StatusCodes.Status200OK)]
-        //public IActionResult GetById([FromRoute] int clientId) =>
-        //    Ok(_clientRepository.GetById(clientId));
+        [HttpGet("get/{id}")]
+        [ProducesResponseType(typeof(Pet), StatusCodes.Status200OK)]
+        public IActionResult GetById([FromRoute] int petId) =>
+            Ok(_petRepository.GetById(petId));
 
 
         #endregion
