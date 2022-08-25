@@ -1,5 +1,6 @@
 ﻿using ClinicService.Data;
 using ClinicService.Models.Requests;
+using ClinicService.Models.Responses;
 using ClinicService.Services;
 using ClinicService.Services.Impl;
 using Microsoft.AspNetCore.Http;
@@ -112,12 +113,23 @@ namespace ClinicService.Controllers
         }
 
         [HttpGet("get-all")]
-        [ProducesResponseType(typeof(IList<Consultation>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IList<ConsultationResponse>), StatusCodes.Status200OK)]
         public IActionResult GetAll()
         {
+            List<ConsultationResponse>responses = new List<ConsultationResponse>();
             var consultation = _consultationRepository.GetAll();
+            foreach(var item in consultation)
+            {
+                responses.Add(new ConsultationResponse()
+                {
+                    Description = item.Description,
+                    ConsultationDate = item.ConsultationDate,
+                    ClientName = item.Client.FirstName,
+                    PetName=item.Pet.Name
+                });
+            }
             
-            return Ok(consultation);
+            return Ok(responses);
         }
             
 
