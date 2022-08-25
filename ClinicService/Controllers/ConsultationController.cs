@@ -122,6 +122,7 @@ namespace ClinicService.Controllers
             {
                 responses.Add(new ConsultationResponse()
                 {
+                    ConsultationId = item.ConsultationId,
                     Description = item.Description,
                     ConsultationDate = item.ConsultationDate,
                     ClientName = item.Client.FirstName,
