@@ -45,6 +45,7 @@ namespace ClinicService.Controllers
         {
             _petRepository.Update(new Pet
             {
+                PetId = updateRequest.PetId,
                 ClientId = updateRequest.ClientId,
                 Birthday = updateRequest.Birthday,
                 Name = updateRequest.Name,
