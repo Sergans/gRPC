@@ -2,6 +2,7 @@ syntax = "proto3";
 
 option csharp_namespace = "ClinicService.Protos";
 import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
 
 service PetService {
 
@@ -17,9 +18,10 @@ service PetService {
 
 }
 message CreatePetRequest {
-        string clientId = 1; 
+        int32 clientId = 1; 
         string name = 2;
-        int32 birthday = 3;
+        google.protobuf.Timestamp birthday = 3;
+        
        
 }
 message CreatePetResponse {
@@ -32,7 +34,7 @@ message CreatePetResponse {
 message UpdatePetRequest {
         int32 petId = 1;
         string name = 2;
-        int32 birthday = 3;
+        google.protobuf.Timestamp birthday = 3;
        
 }
 
@@ -72,6 +74,6 @@ message GetPetsResponse{
 message PetResponse {
 		int32 petId = 1;
         string name = 2;
-        int32 birthday=3;
+        string birthday=3;
        
 }
