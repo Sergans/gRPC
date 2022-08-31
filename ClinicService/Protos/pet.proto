@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "ClinicService.Protos";
+option csharp_namespace = "PetServiceProtos";
 import "google/protobuf/wrappers.proto";
 import "google/protobuf/timestamp.proto";
 

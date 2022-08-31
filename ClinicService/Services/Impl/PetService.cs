@@ -1,7 +1,7 @@
 ﻿using ClinicService.Data;
-using ClinicService.Protos;
+using PetServiceProtos;
 using Grpc.Core;
-using static ClinicService.Protos.PetService;
+using static PetServiceProtos.PetService;
 
 namespace ClinicService.Services.Impl
 {
@@ -24,7 +24,7 @@ namespace ClinicService.Services.Impl
         }
 
         #endregion
-        public override Task<ClinicService.Protos.CreatePetResponse> CreatePet(ClinicService.Protos.CreatePetRequest request, ServerCallContext context)
+        public override Task<PetServiceProtos.CreatePetResponse> CreatePet(PetServiceProtos.CreatePetRequest request, ServerCallContext context)
         {
             var pet = new Pet
             {
@@ -34,7 +34,6 @@ namespace ClinicService.Services.Impl
 
             };
             _dbContext.Pets.Add(pet);
-
             _dbContext.SaveChanges();
 
             var response = new CreatePetResponse
