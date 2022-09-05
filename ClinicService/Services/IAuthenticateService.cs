@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using ClinicService.Models;
+using Grpc.Core;
 
 namespace ClinicService.Services
 {
