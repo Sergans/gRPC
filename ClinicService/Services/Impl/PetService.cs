@@ -2,9 +2,11 @@
 using PetServiceProtos;
 using Grpc.Core;
 using static PetServiceProtos.PetService;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicService.Services.Impl
 {
+    [Authorize]
     public class PetService : PetServiceBase
     {
         #region Serives

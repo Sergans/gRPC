@@ -2,9 +2,11 @@
 using ClientServiceProtos;
 using ClinicService.Data;
 using Grpc.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicService.Services.Impl
 {
+    [Authorize]
     public class ClientService : ClientServiceBase
     {
         #region Serives
